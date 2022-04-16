@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './style.dart' as style;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 void main() {
@@ -41,7 +43,7 @@ class _MyAppState extends State<MyApp> {
           ]),
       //본문에 text
       //List형식으로 tab 보여줄것임 (if써도됨)
-      body: [Text("메인페이지"), Text('샵페이지')][stateTab],
+      body: [Home(), Text('샵페이지')][stateTab],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -58,5 +60,23 @@ class _MyAppState extends State<MyApp> {
         ],
       ),
     );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(itemCount: 5, itemBuilder: (c, i){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network('https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg'),
+          Text('좋아요'),
+          Text('글쓴이'),
+          Text('글내용'),
+        ]
+      );
+    });
   }
 }
