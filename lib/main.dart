@@ -25,7 +25,21 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   //tab의  state
-  var stateTab = 0;
+  int stateTab = 0;
+
+  //get http (async-await를 사용하기위해 getData함수에 담아줌)
+  getData() async {
+    dynamic result = await http.get(Uri.parse('https://codingapple1.github.io/app/data.json'));
+    print(result.body);
+    //map(key-val)으로 파싱
+    print(jsonDecode(result.body));
+  }
+  //initState - getData() 함수 사용
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
