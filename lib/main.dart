@@ -14,8 +14,15 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+//state사용
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var state = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +40,14 @@ class MyApp extends StatelessWidget {
           ]),
       //본문에 text
       body: Text("hello"),
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: '설명 홈'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), label: '설명 샵'),
+        ],
+      ),
     );
   }
 }
