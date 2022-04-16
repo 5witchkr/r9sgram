@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-var themeAppBar = ThemeData(
+final themeAppBar = ThemeData(
   appBarTheme: AppBarTheme(
     color: Colors.blueGrey,
     elevation: 2,
