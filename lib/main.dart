@@ -26,13 +26,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   //tab의  state
   int stateTab = 0;
+  dynamic data = [];
 
   //get http (async-await를 사용하기위해 getData함수에 담아줌)
   getData() async {
     dynamic result = await http.get(Uri.parse('https://codingapple1.github.io/app/data.json'));
-    print(result.body);
-    //map(key-val)으로 파싱
-    print(jsonDecode(result.body));
+    // print(result.body);
+
+    // if (result.statusCode == 200) {
+    //   print('성공');
+    // } else {
+    //   print('실패');
+    // }
+
+    // //map(key-val)으로 파싱
+    // print(jsonDecode(result.body));
+    data = jsonDecode(result.body);
   }
   //initState - getData() 함수 사용
   @override
@@ -57,7 +66,8 @@ class _MyAppState extends State<MyApp> {
           ]),
       //본문에 text
       //List형식으로 tab 보여줄것임 (if써도됨)
-      body: [Home(), Text('샵페이지')][stateTab],
+      //Home자식위젯에 data를 넣어줌
+      body: [Home(data : data), Text('샵페이지')][stateTab],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
@@ -78,19 +88,27 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  //this.data로 사용선언
+  const Home({Key? key, this.data}) : super(key: key);
+  //부모객체에서 받아온 data
+  final data;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemCount: 5, itemBuilder: (c, i){
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.network('https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg'),
-          Text('좋아요'),
-          Text('글쓴이'),
-          Text('글내용'),
-        ]
-      );
-    });
+    if (data.isNotEmpty) {
+      print(data);
+      return ListView.builder(itemCount: 3, itemBuilder: (c, i){
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network('https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg'),
+              Text('좋아요'),
+              Text('글쓴이'),
+              Text(data[i]['content']),
+            ]
+        );
+      });
+    } else {
+      return Text('로딩중.,...');
+    }
   }
 }
