@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './style.dart' as style;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+//스크롤 관련 함수 패키지
+import 'package:flutter/rendering.dart';
 
 
 void main() {
@@ -87,23 +89,31 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Home extends StatelessWidget {
+//stateful widget으로 변경해줬음
+//(등록은 첫 클래스(Home클래스) 사용은 두번째 _HomeState 클래스에서부터 사용)
+class Home extends StatefulWidget {
   //this.data로 사용선언
   const Home({Key? key, this.data}) : super(key: key);
   //부모객체에서 받아온 data
   final data;
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    if (data.isNotEmpty) {
-      print(data);
+    if (widget.data.isNotEmpty) {
+      print(widget.data);
       return ListView.builder(itemCount: 3, itemBuilder: (c, i){
         return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network('https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg'),
-              Text('좋아요'),
-              Text('글쓴이'),
-              Text(data[i]['content']),
+              Image.network(widget.data[i]['image']),
+              Text('좋아요 ${widget.data[i]['likes']}'),
+              Text(widget.data[i]['date']),
+              Text(widget.data[i]['content']),
             ]
         );
       });
