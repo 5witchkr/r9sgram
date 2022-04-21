@@ -102,11 +102,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  //scroll 변수
+  dynamic scroll = ScrollController();
+
+  //scroll initState
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //Listenner ? 변수값이 변할때마다 코드실행
+   scroll.addListener(() {
+      print(scroll.position.pixels);
+      print(scroll.position.userScrollDirection);
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.data.isNotEmpty) {
       print(widget.data);
-      return ListView.builder(itemCount: 3, itemBuilder: (c, i){
+      return ListView.builder(itemCount: 3, controller: scroll,itemBuilder: (c, i){
         return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -118,7 +135,7 @@ class _HomeState extends State<Home> {
         );
       });
     } else {
-      return Text('로딩중.,...');
+      return Text('로딩중입니다....');
     }
   }
 }
