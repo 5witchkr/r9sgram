@@ -61,9 +61,14 @@ class _MyAppState extends State<MyApp> {
           title: Text('R9Sgram'),
           actions: [
             IconButton(
-                onPressed: (){},
                 icon: Icon(Icons.add_box_outlined),
-              iconSize: 30,
+                //상단 네비바 버튼 누르면 네이게이터(새페이지)생성
+                onPressed: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) { return Text("새 페이지-stack"); })
+                  );
+                },
+                iconSize: 30,
             ),
           ]),
       //본문에 text
