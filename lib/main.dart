@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 //스크롤 관련 함수 패키지
 import 'package:flutter/rendering.dart';
-
+import './Upload.dart';
 
 void main() {
   runApp(
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                 //상단 네비바 버튼 누르면 네이게이터(새페이지)생성
                 onPressed: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) { return Text("새 페이지-stack"); })
+                    MaterialPageRoute(builder: (context) => Upload() )
                   );
                 },
                 iconSize: 30,
@@ -144,3 +144,4 @@ class _HomeState extends State<Home> {
     }
   }
 }
+
