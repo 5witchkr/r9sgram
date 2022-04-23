@@ -61,9 +61,14 @@ class _MyAppState extends State<MyApp> {
           title: Text('R9Sgram'),
           actions: [
             IconButton(
-                onPressed: (){},
                 icon: Icon(Icons.add_box_outlined),
-              iconSize: 30,
+                //상단 네비바 버튼 누르면 네이게이터(새페이지)생성
+                onPressed: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) { return Text("새 페이지-stack"); })
+                  );
+                },
+                iconSize: 30,
             ),
           ]),
       //본문에 text
@@ -102,11 +107,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  //scroll 변수
+  dynamic scroll = ScrollController();
+
+  //scroll initState
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //Listenner ? 변수값이 변할때마다 코드실행
+   scroll.addListener(() {
+      print(scroll.position.pixels);
+      print(scroll.position.userScrollDirection);
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.data.isNotEmpty) {
       print(widget.data);
-      return ListView.builder(itemCount: 3, itemBuilder: (c, i){
+      return ListView.builder(itemCount: 3, controller: scroll,itemBuilder: (c, i){
         return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -118,7 +140,7 @@ class _HomeState extends State<Home> {
         );
       });
     } else {
-      return Text('로딩중.,...');
+      return Text('로딩중입니다....');
     }
   }
 }
