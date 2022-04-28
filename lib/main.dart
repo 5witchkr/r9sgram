@@ -5,6 +5,9 @@ import 'dart:convert';
 //스크롤 관련 함수 패키지
 import 'package:flutter/rendering.dart';
 import './Upload.dart';
+//이미지피커
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 void main() {
   runApp(
@@ -29,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   //tab의  state
   int stateTab = 0;
   dynamic data = [];
+  dynamic userImage;
 
   //get http (async-await를 사용하기위해 getData함수에 담아줌)
   getData() async {
@@ -63,9 +67,20 @@ class _MyAppState extends State<MyApp> {
             IconButton(
                 icon: Icon(Icons.add_box_outlined),
                 //상단 네비바 버튼 누르면 네이게이터(새페이지)생성
-                onPressed: (){
+                onPressed: () async {
+                  //imagePicker
+                  dynamic picker = ImagePicker();
+                  dynamic image = await picker.pickImage(source: ImageSource.gallery);
+                  //이미지 널체크 한 뒤 userImage state에 저장
+                  if ( image != null ) {
+                    setState(() {
+                      userImage = File(image.path);
+                    });
+                  }
+
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Upload() )
+                    //upload쪽으로 userImage 보내줌
+                    MaterialPageRoute(builder: (context) => Upload(userImage: userImage) )
                   );
                 },
                 iconSize: 30,
