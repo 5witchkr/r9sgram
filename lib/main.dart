@@ -5,9 +5,6 @@ import 'dart:convert';
 //스크롤 관련 함수 패키지
 import 'package:flutter/rendering.dart';
 import './Upload.dart';
-//이미지피커
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 void main() {
   runApp(
@@ -32,7 +29,6 @@ class _MyAppState extends State<MyApp> {
   //tab의  state
   int stateTab = 0;
   dynamic data = [];
-  dynamic userImage;
 
   //get http (async-await를 사용하기위해 getData함수에 담아줌)
   getData() async {
@@ -78,10 +74,8 @@ class _MyAppState extends State<MyApp> {
                       userImage = File(image.path);
                     });
                   }
-
                   Navigator.push(context,
-                    //upload쪽으로 userImage 보내줌
-                    MaterialPageRoute(builder: (context) => Upload(userImage: userImage) )
+                    MaterialPageRoute(builder: (context) => Upload() )
                   );
                 },
                 iconSize: 30,
