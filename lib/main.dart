@@ -74,6 +74,7 @@ class _MyAppState extends State<MyApp> {
                   //이미지 널체크 한 뒤 userImage state에 저장
                   if ( image != null ) {
                     setState(() {
+                      //state에 저장
                       userImage = File(image.path);
                     });
                   }
@@ -88,7 +89,7 @@ class _MyAppState extends State<MyApp> {
           ]),
       //본문에 text
       //List형식으로 tab 보여줄것임 (if써도됨)
-      //Home자식위젯에 data를 넣어줌
+      //Home자식위젯에 data를 넣어줌.
       body: [Home(data : data), Text('샵페이지')][stateTab],
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
