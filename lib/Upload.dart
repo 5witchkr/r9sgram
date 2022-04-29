@@ -15,7 +15,7 @@ class Upload extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.file(userImage),
-          Text('이미지 업로드 화면'),
+          Text('이미지 업로드 화면!'),
         ],
       )
     );
