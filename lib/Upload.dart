@@ -16,6 +16,7 @@ class Upload extends StatelessWidget {
         children: [
           Image.file(userImage),
           Text('이미지 업로드 화면'),
+          TextField(),
         ],
       )
     );
